@@ -1,0 +1,85 @@
+Este código tem como objetivo principal prever o consumo anual de óleo diesel para um estado específico usando um modelo de regressão linear. Aqui está uma explicação passo a passo:
+Importação de Bibliotecas: O código começa importando a biblioteca csv, que é usada para trabalhar com arquivos CSV.
+Definição do Arquivo e Entrada do Usuário: Define o nome do arquivo CSV (vendas-anuais-de-oleo-diesel-por-municipio.csv) e solicita ao usuário que digite a sigla de um estado (UF). A entrada do usuário é convertida para maiúsculas (.upper()) para padronização.
+
+Estruturas de Dados: São inicializadas listas vazias (anos, consumo) e um dicionário vazio (vendasPorAno).
+
+anos: Irá armazenar os anos para os quais há dados de consumo.
+consumo: Irá armazenar o consumo total de diesel para cada ano correspondente.
+vendasPorAno: Usado para somar as vendas anuais para o estado escolhido.
+Leitura e Processamento do Arquivo CSV: O código abre e lê o arquivo CSV:
+
+with open(arquivo, "r", encoding="utf-8") as f:: Abre o arquivo no modo de leitura, especificando a codificação utf-8.
+leitor = csv.reader(f): Cria um objeto leitor para iterar sobre as linhas do CSV.
+next(leitor): Pula a linha do cabeçalho do arquivo.
+O loop for linha in leitor: itera sobre cada linha de dados:
+Extrai o ano (coluna 0), uf (coluna 2) e vendas (coluna 6), convertendo-os para os tipos de dados apropriados (int para ano, float para vendas).
+if uf == estadoEscolhido:: Verifica se a linha pertence ao estado que o usuário escolheu.
+if ano not in vendasPorAno: vendasPorAno[ano] = 0: Se o ano ainda não está no dicionário vendasPorAno, ele é inicializado com 0.
+vendasPorAno[ano] += vendas: As vendas do município para aquele ano e estado são somadas ao total anual.
+Preparação dos Dados para Regressão: Após processar todas as linhas, o código preenche as listas anos e consumo com os dados agregados:
+
+for ano in sorted(vendasPorAno):: Itera sobre os anos no dicionário vendasPorAno em ordem crescente.
+anos.append(ano): Adiciona o ano à lista anos.
+consumo.append(vendasPorAno[ano]): Adiciona o consumo total daquele ano à lista consumo.
+Função de Regressão Linear (regressaoLinear):
+
+Esta função implementa o método dos mínimos quadrados para calcular os coeficientes de uma regressão linear simples (y = a + bx).
+n = len(x): Número de pontos de dados.
+Calcula as somas necessárias (somaX, somaY, somaXY, somaX2).
+Calcula o coeficiente angular b e o coeficiente linear a usando as fórmulas da regressão linear.
+Retorna os valores de a e b.
+Aplicação do Modelo e Previsão:
+
+a, b = regressaoLinear(anos, consumo): Chama a função regressaoLinear para calcular os coeficientes a e b usando os anos como x e o consumo como y.
+print("Modelo encontrado:") e print("Consumo =", a, "+", b, "* Ano"): Exibe a equação do modelo linear encontrado.
+ultimoAno = max(anos): Identifica o último ano para o qual há dados.
+O loop for i in range(1, 4): prevê o consumo para os próximos 3 anos:
+anoFuturo = ultimoAno + i: Calcula o ano futuro (o ano seguinte ao último ano de dados, e os dois subsequentes).
+previsao = a + b * anoFuturo: Calcula a previsão de consumo para o anoFuturo usando a equação do modelo de regressão linear.
+print(anoFuturo, "->", int(previsao), "litros"): Exibe o ano futuro e sua previsão de consumo, arredondada para um número inteiro de litros.
+
+
+Modelo de Regressão Linear Encontrado:
+
+Consumo = -818329104749.0 + 411131646.1 * Ano
+Este é o modelo matemático que o algoritmo de regressão linear encontrou para descrever a relação entre o ano e o consumo de óleo diesel em São Paulo.
+O valor -818329104749.0 é o coeficiente linear (intercepto), que representa o consumo estimado quando o ano fosse zero (embora não tenha significado prático neste contexto, pois estamos extrapolando para anos futuros).
+O valor 411131646.1 é o coeficiente angular (inclinação), que indica que, para cada aumento de um ano, o consumo de óleo diesel no estado de São Paulo é previsto para aumentar em aproximadamente 411.131.646,1 litros, segundo o modelo.
+Previsão para Próximos Anos (para SP):
+
+2025 -> 14212478603 litros
+2026 -> 14623610249 litros
+2027 -> 15034741895 litros
+Com base no modelo de regressão linear que foi treinado com os dados históricos de consumo de SP, o código previu o consumo total de óleo diesel para os próximos três anos. Estes números representam uma estimativa de crescimento contínuo do consumo anual para o estado, seguindo a tendência observada nos dados históricos.
+Em resumo, o modelo prevê um aumento constante no consumo de óleo diesel em São Paulo nos próximos anos, com base nos dados que você forneceu.
+
+
+Para uma regressão linear simples na forma y = a + bx (onde y é o consumo, x é o ano, a é o intercepto e b é o coeficiente angular), os coeficientes a e b são calculados da seguinte forma:
+
+Entradas da Função: A função regressaoLinear recebe duas listas: x (que são os anos) e y (que são os valores de consumo correspondentes).
+
+Cálculo de n: n = len(x) determina o número de pontos de dados que temos.
+
+Cálculo das Somas Necessárias: O algoritmo dos mínimos quadrados exige algumas somas específicas dos dados:
+
+somaX = sum(x): A soma de todos os valores de x (os anos).
+somaY = sum(y): A soma de todos os valores de y (o consumo).
+somaXY = 0 e somaX2 = 0: Estas variáveis são inicializadas e preenchidas em um loop. Para cada ponto de dado (x[i], y[i]):
+somaXY += x[i] * y[i]: Soma o produto de x e y para cada ponto.
+somaX2 += x[i] * x[i]: Soma o quadrado de x para cada ponto.
+Cálculo do Coeficiente Angular (b): O coeficiente b (a inclinação da linha) é calculado pela fórmula:
+
+b = (n * somaXY - somaX * somaY) / (n * somaX2 - somaX ** 2)
+
+Esta fórmula minimiza a soma dos quadrados das diferenças verticais entre os pontos de dados e a linha de regressão.
+
+Cálculo do Coeficiente Linear (a): Após encontrar b, o coeficiente a (o intercepto da linha, ou onde a linha cruza o eixo Y) é calculado pela fórmula:
+
+a = (somaY - b * somaX) / n
+
+Esta fórmula garante que a linha de regressão passe pelo ponto médio dos dados (somaX/n, somaY/n).
+
+Retorno dos Coeficientes: A função então retorna os valores calculados de a e b.
+
+Esses valores a e b são os que definem a equação da linha de regressão, que é usada para fazer as previsões futuras de consumo.

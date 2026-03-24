@@ -44,6 +44,6 @@ for i in range(1, 4):
     anoFuturo = ultimoAno + i
     # Aplicação da função linear encontrada para estimar o consumo futuro
     previsao = b * anoFuturo + a
-    print(f"{anoFuturo} -> {int(previsao)} litros")
+    print(f"{anoFuturo} -> {previsao:,.2f} litros")
   
 

@@ -93,4 +93,29 @@ Diagrama Funcional
 
 ---
 
-*Projeto acadêmico — Processamento da Informação · UFABC*
+
+Projeto acadêmico — Processamento da Informação · UFABC
+
+Descrição Funcional do Projeto 2
+
+Billings — Monitoramento Participativo da Qualidade da Água
+
+Contexto e Justificativa
+A Represa Billings, localizada na região do ABC Paulista, é um dos maiores reservatórios de água doce da América Latina e está diretamente relacionada ao território de atuação deste projeto. Responsável pelo abastecimento de milhares de pessoas, a Billings enfrenta sérios desafios de poluição, degradação ambiental e pressão urbana, tornando urgente o desenvolvimento de iniciativas que promovam a conscientização, o monitoramento e a preservação desse recurso hídrico essencial.
+
+Objetivos
+Promover o acompanhamento contínuo da qualidade da água da Represa Billings;
+
+ODS
+🔵 ODS 6 Água Potável e Saneamento - Monitoramento da qualidade e acesso seguro à água
+🟢 ODS 15 Vida Terrestre - Preservação do ecossistema do entorno da represa
+
+Descrição Funcional
+O projeto propõe o desenvolvimento de um programa digital de monitoramento participativo, com as seguintes funcionalidades principais:
+1. Ferramenta de pesquisa de Qualidade da Água, exibição de indicadores ambientais da Represa Billings em tempo real, como nível de turbidez, pH e índice de oxigenação.
+2. Histórico e Tendências Módulo de visualização de dados históricos, permitindo identificar padrões de degradação ou melhora da qualidade da água ao longo do tempo.
+
+Público-Alvo
+Pesquisadores ambientais - Ferramenta 
+
+
